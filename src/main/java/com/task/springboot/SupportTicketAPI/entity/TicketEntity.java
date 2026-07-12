@@ -16,6 +16,7 @@ import lombok.Setter;
 public class TicketEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ticket_id")
     private Long ticketId;
 

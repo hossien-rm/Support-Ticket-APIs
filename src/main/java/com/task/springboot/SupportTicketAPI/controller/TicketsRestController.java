@@ -8,21 +8,18 @@ import com.task.springboot.SupportTicketAPI.entity.TicketEntity;
 import com.task.springboot.SupportTicketAPI.exception.TicketsNotFoundException;
 import com.task.springboot.SupportTicketAPI.mapper.TicketMapper;
 import com.task.springboot.SupportTicketAPI.service.TicketsService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api")
 public class TicketsRestController {
     private final TicketsService ticketsService;
     private final ObjectMapper objectMapper;
-
-    public TicketsRestController(TicketsService ticketsService, ObjectMapper objectMapper) {
-        this.ticketsService = ticketsService;
-        this.objectMapper = objectMapper;
-    }
 
     @GetMapping("/tickets")
     public List<TicketDto> findAllTickets(){
@@ -56,8 +53,6 @@ public class TicketsRestController {
          if(ticketId==null){
              throw new RuntimeException();
          }
-
-         TicketEntity partialUpdate=objectMapper.updateValue(ticketId,patchLoad);
 
          return  TicketMapper.entityToDto(ticketsService.saveTicket(ticketId));
     }

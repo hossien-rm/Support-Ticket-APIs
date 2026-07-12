@@ -32,6 +32,7 @@ public class TicketsServiceImpl implements TicketsService {
 
     @Override
     public TicketEntity saveTicket(TicketEntity objTicket){
+        //default ticketStatus OPEN
         objTicket.setTicketStatus(TicketStatus.OPEN);
         return userTicketsRepository.save(objTicket);
     }
