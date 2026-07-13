@@ -48,13 +48,15 @@ public class TicketsRestController {
 
     @PatchMapping("/tickets/{patchId}")
     public TicketDto patchTicket(@PathVariable Integer patchId, @RequestBody Map<String,Object> patchLoad) throws JsonMappingException {
-         TicketEntity ticketId=ticketsService.findByIdTickest(patchId);
+
+        TicketEntity ticketId=ticketsService.findByIdTickest(patchId);
+        TicketEntity ticket=objectMapper.updateValue(ticketId,patchLoad);
 
          if(ticketId==null){
              throw new RuntimeException();
          }
 
-         return  TicketMapper.entityToDto(ticketsService.saveTicket(ticketId));
+         return  TicketMapper.entityToDto(ticketsService.saveTicket(ticket));
     }
 
     @DeleteMapping("/tickets/{id}")
