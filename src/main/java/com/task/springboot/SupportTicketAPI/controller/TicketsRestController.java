@@ -53,7 +53,7 @@ public class TicketsRestController {
         TicketEntity ticket=objectMapper.updateValue(ticketId,patchLoad);
 
          if(ticketId==null){
-             throw new RuntimeException();
+             throw new TicketsNotFoundException("Please put correct ticket id!");
          }
 
          return  TicketMapper.entityToDto(ticketsService.saveTicket(ticket));
