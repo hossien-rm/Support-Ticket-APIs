@@ -14,7 +14,7 @@ public class TicketsRestExceptionHandler {
 
         TicketsErrorResponse error=new TicketsErrorResponse();
         error.setStatus(HttpStatus.NOT_FOUND.value());
-        error.setMessage("This ticket not found!!!");
+        error.setMessage(exc.getMessage());
         error.setTimeStamp(System.currentTimeMillis());
 
         return new ResponseEntity<>(error,HttpStatus.NOT_FOUND);
