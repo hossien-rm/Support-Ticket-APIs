@@ -3,6 +3,7 @@ package com.task.springboot.SupportTicketAPI.service;
 
 import com.task.springboot.SupportTicketAPI.constant.TicketStatus;
 import com.task.springboot.SupportTicketAPI.entity.TicketEntity;
+import com.task.springboot.SupportTicketAPI.exception.TicketsNotFoundException;
 import com.task.springboot.SupportTicketAPI.repository.UserTicketsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,8 @@ public class TicketsServiceImpl implements TicketsService {
 
     @Override
     public TicketEntity findByIdTickest(int ticket_id){
-        return userTicketsRepository.findById(ticket_id).orElse(null);
+        return userTicketsRepository.findById(ticket_id)
+                .orElseThrow(()->new TicketsNotFoundException("You can not get this ticket!"));
     }
 
 
@@ -37,8 +39,11 @@ public class TicketsServiceImpl implements TicketsService {
         return userTicketsRepository.save(objTicket);
     }
 
+
     @Override
     public void deleteTickets(int id){
+        userTicketsRepository.findById(id)
+                .orElseThrow(()->new TicketsNotFoundException("You can not delete this ticket!"));
         userTicketsRepository.deleteById(id);
     }
 
