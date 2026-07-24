@@ -1,6 +1,7 @@
 package com.task.springboot.SupportTicketAPI.service;
 
 
+import com.task.springboot.SupportTicketAPI.annotation.LogExecutionTime;
 import com.task.springboot.SupportTicketAPI.constant.TicketStatus;
 import com.task.springboot.SupportTicketAPI.entity.TicketEntity;
 import com.task.springboot.SupportTicketAPI.exception.TicketsNotFoundException;
@@ -31,7 +32,7 @@ public class TicketsServiceImpl implements TicketsService {
                 .orElseThrow(()->new TicketsNotFoundException("You can not get this ticket!"));
     }
 
-
+    @LogExecutionTime
     @Override
     public TicketEntity saveTicket(TicketEntity objTicket){
         //default ticketStatus OPEN
@@ -39,7 +40,7 @@ public class TicketsServiceImpl implements TicketsService {
         return userTicketsRepository.save(objTicket);
     }
 
-
+    @LogExecutionTime
     @Override
     public void deleteTickets(int id){
         userTicketsRepository.findById(id)
